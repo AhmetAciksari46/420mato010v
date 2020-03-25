@@ -1,0 +1,7 @@
+Some sensors output 4-20mA and some controller input is only 0-10v. In these cases you have to use converter circuat. 
+Circuat able to detect 4-20ma and 0-10v output.
+Arduino can read voltage. 4-20ma input and 250ohm resistor (4ma*250ohm=1V)(20ma*250ohm=5V) when used together arduino can read 1v between 5V. 
+Arduino shows the voltage it reads as 10bit value.(0-1023) 1V and 5V means 204-1023.
+
+Arduino output voltage is 5V. You can use "LM358". LM358 set output to supply voltage - 2V. if use 12V supply votlage, lm358 output between 0-10V.
+The operation of the LM358 multiplies the input value by 2. If input value 0V, output 0v.If input value 5V output value 10V.
