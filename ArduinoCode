@@ -1,0 +1,33 @@
+#include <LiquidCrystal.h>                                  //LCD library
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2; //16*2 LCD pins
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);                  //call lcd lib func.
+
+int analogpin = A1;                 //Voltage to be read over 250ohm resistors.  Analog1 pin.
+int analogVoltage = 0;              //Read voltage value  1V-5V
+int voutputpin = 6;                 //Voltage output pin. Use pwm pin.
+int outputVoltageValue = 0;         //Output voltage value. 0-5V
+float realInputValue = 0.00;        //Converted voltage value measured as input mA. 4-20mA
+float realOutputValue = 0.00;       //Converted voltage value measured as real Output Voltage. 0-10V
+int inputRefValue = 204;            //Voltage=Current x Res. Current = 4-20ma. Res=250ohm.Voltage will be between 1V and 5V.5V means analog 1023,1v means analog 204
+
+void setup() 
+{
+  pinMode(voutputpin,OUTPUT);   //output pin set Output
+  lcd.begin(16, 2);             // call lcd lib for start lcd
+}
+void loop()
+{
+  analogVoltage=analogRead(analogpin); //Read voltage through res. 
+  outputVoltageValue=map(analogVoltage,inputRefValue,1023,0,255);   
+  //pwm pin output(0v-5v)setting. The value between 204 and 1023 is converted into 1v-5v range.
+  analogWrite(voutputpin,outputVoltageValue);     //Setting pwm pin to value.
+  realInputValue = analogVoltage/250;             //Voltage converting to current.
+  lcd.clear();                                    //clear lcd.
+  lcd.setCursor(0, 0);                            //lcd curser set.
+  lcd.print("4 20ma In:");                        //lcd print something.
+  lcd.print(realInputValue);                      //lcd print Input current value
+  realOutputValue=(outputVoltageValue*(5/256)*2) ;     //pwm pin output voltage x 2 value. x 2 means real output voltage value  
+  lcd.setCursor(0, 1);                            //lcd curser set.       
+  lcd.print("0 10v Out:");                        //lcd print something.
+  lcd.print(realOutputValue);                     //lcd print output voltage value
+}
