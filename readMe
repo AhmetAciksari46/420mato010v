@@ -1,5 +1,5 @@
-Some sensors output 4-20mA and some controller input is only 0-10v. In these cases you have to use converter circuat. 
-Circuat able to detect 4-20ma and 0-10v output.
+Some sensors output 4-20mA and some controller input is only 0-10v. In these cases you have to use converter circuit. 
+Circuit able to detect 4-20ma and 0-10v output.
 Arduino can read voltage. 4-20ma input and 250ohm resistor (4ma*250ohm=1V)(20ma*250ohm=5V) when used together arduino can read 1v between 5V. 
 Arduino shows the voltage it reads as 10bit value.(0-1023) 1V and 5V means 204-1023.
 
